@@ -1,6 +1,6 @@
 import Foundation
 
-struct OnboardingOption: Codable {
+struct OnboardingAnswer: Codable {
     let id: String
     let title: String
 }
