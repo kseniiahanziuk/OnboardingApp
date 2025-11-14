@@ -1,0 +1,6 @@
+framework module Pods_OnboardingApp_OnboardingAppUITests {
+  umbrella header "Pods-OnboardingApp-OnboardingAppUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
