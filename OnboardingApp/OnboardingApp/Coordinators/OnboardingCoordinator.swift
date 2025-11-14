@@ -67,8 +67,10 @@ final class OnboardingCoordinator: NSObject {
     }
     
     private func showPaywall() {
-        // TODO: Implement PaywallViewController
-        completeOnboarding()
+        let paywallVC = PaywallViewController()
+        paywallVC.delegate = self
+        
+        navigationController.pushViewController(paywallVC, animated: true)
     }
     
     private func completeOnboarding() {
@@ -109,11 +111,19 @@ extension OnboardingCoordinator: QuestionRxDelegate {
         let selection = UserSelection(cardId: cardId, answerId: answerId)
         userSelections.append(selection)
         
-        // Log for debugging
-        print("User selected answer '\(answerId)' for card \(cardId)")
-        
         currentIndex += 1
         showNextCard()
+    }
+}
+
+// MARK: - PaywallViewControllerDelegate
+extension OnboardingCoordinator: PaywallViewControllerDelegate {
+    func didCompletePurchase() {
+        completeOnboarding()
+    }
+    
+    func didClose() {
+        completeOnboarding()
     }
 }
 
@@ -181,17 +191,5 @@ extension OnboardingCoordinator {
         UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
         UserDefaults.standard.removeObject(forKey: "onboardingSelections")
         UserDefaults.standard.removeObject(forKey: "hasPremiumAccess")
-    }
-}
-
-struct UserSelection: Codable {
-    let cardId: Int
-    let answerId: String
-    let timestamp: Date
-    
-    init(cardId: Int, answerId: String) {
-        self.cardId = cardId
-        self.answerId = answerId
-        self.timestamp = Date()
     }
 }

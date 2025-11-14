@@ -5,14 +5,6 @@ final class NetworkService: NetworkServiceProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
     
-    struct Configuration {
-        let baseURL: String
-        let timeoutInterval: TimeInterval
-        let cachePolicy: URLRequest.CachePolicy
-        
-        static let `default` = Configuration(baseURL: API.baseURL, timeoutInterval: API.timeout, cachePolicy: .useProtocolCachePolicy)
-    }
-    
     init(configuration: Configuration = .default) {
         self.baseURL = configuration.baseURL
         
