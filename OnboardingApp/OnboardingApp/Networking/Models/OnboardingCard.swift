@@ -5,9 +5,9 @@ struct OnboardingCard: Codable {
     let question: String
     let answers: [String]
     
-    var options: [OnboardingOption] {
-        return answers.enumerated().map { index, answer in
-            OnboardingOption(id: "\(id)-\(index)", title: answer)
+    var answerObjects: [OnboardingAnswer] {
+        return answers.enumerated().map { index, answerText in
+            OnboardingAnswer(id: "\(id)-\(index)", title: answerText)
         }
     }
 }
